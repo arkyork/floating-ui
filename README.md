@@ -4,7 +4,7 @@ ChatGPTの入力欄のそばに、保存済みプロンプトを扱うための�
 
 
 <p align="center">
-    <img src="material/image.png" alt="alt text" height="300" style="align:center;" />
+    <img src="material/image.png" alt="alt text" height="500" style="align:center;" />
 </p>
 
 ## 特長
