@@ -8,8 +8,8 @@
   "content_scripts": [
     {
       "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
-      "js": ["csv.js", "store.js", "composer.js", "ui.js", "content.js"],
-      "css": ["ui.css"],
+      "js": ["csv.js", "store.js", "composer.js", "ui/ui.js", "content.js"],
+      "css": ["ui/ui.css"],
       "run_at": "document_idle"
     }
   ]

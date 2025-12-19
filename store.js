@@ -7,7 +7,6 @@
     pos: { right: 16, bottom: 16 }
   });
 
-  // 旧キーから移行（あなたが使ってた配列保存）
   const LEGACY_KEY = "cgpt_prompts_v1";
 
   function sanitizeState(raw) {
