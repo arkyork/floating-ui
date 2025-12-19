@@ -266,9 +266,9 @@
       toast("位置を保存しました");
     }
 
-    // keyboard: Ctrl+Shift+P
+    // keyboard: Ctrl+Shift+L
     document.addEventListener("keydown", (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "p") {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "l") {
         setMinimized(!state.minimized);
       }
     });
