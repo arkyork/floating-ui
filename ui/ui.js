@@ -74,9 +74,8 @@
             <div class="itemTop">
               <div class="itemTitle">${esc(p.title || "Untitled")}</div>
               <div class="btnRow">
-                <button class="btn use" title="入力欄に貼る">貼る</button>
                 <button class="btn copy" title="コピー">Copy</button>
-                <button class="btn edit" title="編集">Edit</button> <!-- ★追加 -->
+                <button class="btn edit" title="編集">Edit</button>
                 <button class="btn del" title="削除">Del</button>
               </div>
             </div>
@@ -252,9 +251,7 @@
       const p = state.prompts.find((x) => x.id === id);
       if (!p) return;
 
-      if (btn.classList.contains("use")) {
-        return toast(window.CGPTComposer.setText(p.text) ? "貼り付けました" : "入力欄が見つかりません");
-      }
+
 
       if (btn.classList.contains("copy")) {
         try {
