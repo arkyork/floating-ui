@@ -1,8 +1,11 @@
 ﻿# ChatGPT Prompt Floating UI
 
-ChatGPTの入力欄のそばに、保存済みプロンプトを扱うためのフローティングUIを表示するChrome拡張です。
+ChatGPTの入力欄のそばに、保存済みプロンプトを扱うためのフローティングUIを表示するChrome拡張機能です。
 
-![alt text](material/image.png)
+
+<p align="center">
+    <img src="material/image.png" alt="alt text" height="300" style="align:center;" />
+</p>
 
 ## 特長
 - プロンプトの保存・一覧表示
