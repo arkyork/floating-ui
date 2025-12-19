@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "ChatGPT Prompt Floating Saver (Split)",
+  "name": "ChatGPT Prompt Floating Ui",
   "version": "0.4.0",
   "description": "ChatGPT上に浮かぶUIでプロンプト保存・呼び出し。CSV import/export対応。最小化・位置保存あり。",
   "permissions": ["storage"],

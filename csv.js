@@ -1,6 +1,6 @@
 (() => {
 
-
+  // プロンプトデータの配列をCSV形式の文字列に変換して返す
   function toCsv(prompts) {
     const header = ["id", "title", "text", "createdAt"];
     const escape = (v) => `"${String(v ?? "").replaceAll('"', '""')}"`;
@@ -15,6 +15,7 @@
     return [header, ...rows].map((r) => r.map(escape).join(",")).join("\n");
   }
 
+  // CSV形式の文字列を2次元配列に変換して返す
   function parseCsv(text) {
     const rows = [];
     let row = [];
@@ -56,7 +57,7 @@
     return rows.filter((r) => r.some((v) => v !== ""));
   }
 
-  // returns { added, skipped, prompts: Prompt[] }
+  // CSVの内容をプロンプトデータに変換して返す
   function importCsv(csvText, { uid, now, existingIds } = {}) {
     const rows = parseCsv(csvText);
     if (rows.length === 0) return { added: 0, skipped: 0, prompts: [] };
@@ -106,4 +107,5 @@
   }
 
   window.CGPTCsv = { toCsv, parseCsv, importCsv };
+  
 })();
