@@ -98,7 +98,7 @@
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(0, 0, 0, 0.2);
   color: #fff;
-  padding: 7px 10px;
+  padding: 2px 4px;
   cursor: pointer;
   font-size: 12px;
 }
@@ -117,14 +117,14 @@
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
   max-height: 320px;
   overflow: auto;
   padding-right: 2px;
 }
 
 #cgpt-prompt-float .item {
-  padding: 10px;
+  padding: 2px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.16);
@@ -141,9 +141,15 @@
   font-size: 12px;
   font-weight: 650;
   max-width: 170px;
+  padding-left: 10px ;
+  height: 32px;
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  display: flex;
+  align-items: center;
 }
 
 #cgpt-prompt-float .btnRow {
