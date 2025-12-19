@@ -1,0 +1,173 @@
+/* ui.css */
+#cgpt-prompt-float {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483647;
+  font-family: system-ui, -apple-system, "Noto Sans JP", sans-serif;
+}
+
+#cgpt-prompt-float .wrap {
+  width: 320px;
+  background: rgba(20, 20, 20, 0.92);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+#cgpt-prompt-float .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  cursor: move;
+  user-select: none;
+}
+
+#cgpt-prompt-float .head .title {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+
+#cgpt-prompt-float .head .hbtn {
+  width: 26px;
+  height: 22px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  cursor: pointer;
+  margin-left: 6px;
+}
+#cgpt-prompt-float .head .hbtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#cgpt-prompt-float .body {
+  padding: 10px;
+  display: block;
+}
+
+#cgpt-prompt-float.min .body {
+  display: none;
+}
+
+#cgpt-prompt-float .box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+#cgpt-prompt-float input,
+#cgpt-prompt-float textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  padding: 8px 10px;
+  outline: none;
+}
+#cgpt-prompt-float textarea {
+  resize: vertical;
+  min-height: 76px;
+}
+#cgpt-prompt-float input::placeholder,
+#cgpt-prompt-float textarea::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+#cgpt-prompt-float .rowBtns {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+#cgpt-prompt-float .btn {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+#cgpt-prompt-float .btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+#cgpt-prompt-float .btn.primary {
+  background: rgba(0, 255, 180, 0.18);
+  border-color: rgba(0, 255, 180, 0.45);
+}
+#cgpt-prompt-float .btn.primary:hover {
+  background: rgba(0, 255, 180, 0.26);
+}
+
+#cgpt-prompt-float .list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 320px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+#cgpt-prompt-float .item {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+#cgpt-prompt-float .itemTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#cgpt-prompt-float .itemTitle {
+  font-size: 12px;
+  font-weight: 650;
+  max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#cgpt-prompt-float .btnRow {
+  display: flex;
+  gap: 6px;
+}
+
+#cgpt-prompt-float .empty {
+  padding: 10px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  text-align: center;
+}
+
+#cgpt-prompt-float .toast {
+  position: absolute;
+  left: 12px;
+  bottom: -34px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  font-size: 12px;
+  pointer-events: none;
+}
