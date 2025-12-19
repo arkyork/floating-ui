@@ -2,6 +2,8 @@
 
 ChatGPTの入力欄のそばに、保存済みプロンプトを扱うためのフローティングUIを表示するChrome拡張です。
 
+![alt text](material/image.png)
+
 ## 特長
 - プロンプトの保存・一覧表示
 - クリックで入力欄へ貼り付け / クリップボードへコピー
@@ -26,9 +28,6 @@ ChatGPTの入力欄のそばに、保存済みプロンプトを扱うための�
 - ヘッダーなしも読み込み可能
 - `text` が空の行はスキップ
 
-## データ保存
-`chrome.storage.local` に保存します（ローカルのみ）。
-
 ## 構成
 - `manifest.json`: 拡張設定
 - `composer.js`: 入力欄の取得/設定
@@ -36,10 +35,3 @@ ChatGPTの入力欄のそばに、保存済みプロンプトを扱うための�
 - `csv.js`: CSV入出力
 - `ui/ui.js`, `ui/ui.css`: フローティングUI
 - `content.js`: UI初期化
-
-## 開発メモ
-- Manifest V3
-- 対象サイト: `https://chatgpt.com/*`, `https://chat.openai.com/*`
-
-## ライセンス
-未設定
