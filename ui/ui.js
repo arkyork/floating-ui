@@ -16,10 +16,11 @@
   const state = {
     prompts: [],
     minimized: false,
-    pos: { right: 16, bottom: 16 }
+    pos: { right: 16, bottom: 16 },
+    editingId: null // ★追加: 編集中のid（nullなら新規）
   };
 
-  let root, header, listEl, toastEl, titleEl, textEl;
+  let root, header, listEl, toastEl, titleEl, textEl, addBtn, cancelBtn;
 
   function toast(msg) {
     toastEl.textContent = msg;
@@ -43,6 +44,21 @@
     persist();
   }
 
+  function setEditMode(idOrNull) {
+    state.editingId = idOrNull;
+
+    const isEditing = !!state.editingId;
+
+    // 保存ボタンの文言変更
+    addBtn.textContent = isEditing ? "更新" : "保存";
+
+    // ★編集取消は編集時だけ表示
+    if (cancelBtn) cancelBtn.style.display = isEditing ? "inline-block" : "none";
+
+    persist();
+  }
+
+
   function renderList() {
     if (!state.prompts.length) {
       listEl.innerHTML = `<div class="empty">まだ保存がありません</div>`;
@@ -60,6 +76,7 @@
               <div class="btnRow">
                 <button class="btn use" title="入力欄に貼る">貼る</button>
                 <button class="btn copy" title="コピー">Copy</button>
+                <button class="btn edit" title="編集">Edit</button> <!-- ★追加 -->
                 <button class="btn del" title="削除">Del</button>
               </div>
             </div>
@@ -140,6 +157,7 @@
             <textarea class="inText" rows="4" placeholder="保存したいプロンプト"></textarea>
             <div class="rowBtns">
               <button class="btn primary" data-act="add">保存</button>
+              <button class="btn" data-act="cancelEdit">編集取消</button> <!-- ★追加 -->
               <button class="btn" data-act="import">CSV import</button>
               <button class="btn" data-act="export">CSV export</button>
             </div>
@@ -159,10 +177,15 @@
     toastEl = root.querySelector(".toast");
     titleEl = root.querySelector(".inTitle");
     textEl = root.querySelector(".inText");
+    addBtn = root.querySelector('[data-act="add"]');
+    cancelBtn = root.querySelector('[data-act="cancelEdit"]');
 
     applyPosition();
     renderList();
     setMinimized(state.minimized);
+    setEditMode(state.editingId); 
+    // 復元：編集モードだった場合（任意）
+    if (state.editingId) addBtn.textContent = "更新";
 
     // click actions
     root.addEventListener("click", async (e) => {
@@ -173,24 +196,48 @@
       if (act === "min") return setMinimized(!state.minimized);
       if (act === "close") return root.remove();
 
+      if (act === "cancelEdit") {
+        setEditMode(null);
+        titleEl.value = "";
+        textEl.value = "";
+        addBtn.textContent = "保存";
+        toast("編集を取り消しました");
+        return;
+      }
+
       if (act === "add") {
         const title = titleEl.value.trim();
         const text = textEl.value.trim();
         if (!text) return toast("本文が空です");
 
-        state.prompts.push({ id: uid(), title, text, createdAt: Date.now() });
+        // ★編集モードなら更新、そうでなければ新規
+        if (state.editingId) {
+          const idx = state.prompts.findIndex((x) => x.id === state.editingId);
+          if (idx === -1) {
+            // 何らかで消えてたら新規扱い
+            state.prompts.push({ id: uid(), title, text, createdAt: Date.now() });
+          } else {
+            state.prompts[idx] = {
+              ...state.prompts[idx],
+              title,
+              text,
+              // createdAtは保持したいならそのまま。更新日時が欲しければ updatedAt を追加すると良い
+            };
+          }
+          setEditMode(null);
+          addBtn.textContent = "保存";
+          toast("更新しました");
+        } else {
+          state.prompts.push({ id: uid(), title, text, createdAt: Date.now() });
+          toast("保存しました");
+        }
+
         titleEl.value = "";
         textEl.value = "";
 
         await persist();
         renderList();
-        return toast("保存しました");
-      }
-
-      if (act === "grab") {
-        const text = window.CGPTComposer.getText().trim();
-        textEl.value = text;
-        return toast(text ? "取り込みました" : "入力欄が見つかりません");
+        return;
       }
 
       if (act === "export") return doExportCsv();
@@ -219,11 +266,30 @@
         return;
       }
 
+      if (btn.classList.contains("edit")) {
+        // ★編集開始：入力欄に反映して編集モードへ
+        titleEl.value = p.title || "";
+        textEl.value = p.text || "";
+        setEditMode(p.id);
+        addBtn.textContent = "更新";
+        return;
+      }
+
       if (btn.classList.contains("del")) {
         state.prompts = state.prompts.filter((x) => x.id !== id);
+
+        // 編集中のものを消したら編集モード解除
+        if (state.editingId === id) {
+          setEditMode(null);
+          titleEl.value = "";
+          textEl.value = "";
+          addBtn.textContent = "保存";
+        }
+
         await persist();
         renderList();
-        return toast("削除しました");
+        toast("削除しました");
+        return;
       }
     });
 
@@ -279,6 +345,7 @@
     state.prompts = loaded.prompts || [];
     state.minimized = !!loaded.minimized;
     state.pos = loaded.pos || state.pos;
+    state.editingId = loaded.editingId ?? null; // ★追加（保存されてないならnull）
 
     buildUI();
   }
